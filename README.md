@@ -1,21 +1,15 @@
-/api/me -> { "email": "...", "name": "..." }
+REST
 
-```ts
-class Me {
-    getName() {
-        return "..."
-    }
-}
-```
+----
 
-Navbar
+GET // récupérer 200
+POST // créer 201
+PUT // mettre à jour 200
+DELETE // supprimer 204
 
-```ts
-me.getName()
-```
+/api/users/:id
 
-Liste des participants
-
-```ts
-me.getName()
-```
+404
+403
+400
+500
