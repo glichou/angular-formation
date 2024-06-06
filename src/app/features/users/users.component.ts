@@ -14,7 +14,6 @@ import { UserCardComponent } from './user-card/user-card.component';
 })
 export class UsersComponent implements OnInit {
   private userService = inject(UserService)
-
   nbSelected = 0;
   extSelected = '';
   extensions: string[] = ['tv', 'biz', 'io', 'me'];
