@@ -1,4 +1,4 @@
-import { Component, OnInit, WritableSignal, inject } from '@angular/core';
+import { Component, OnInit, Signal, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../core/interfaces/user.interface';
 import { UserService } from '../../core/services/user.service';
@@ -17,7 +17,7 @@ export class UsersComponent implements OnInit {
   nbSelected = 0;
   extSelected = '';
   extensions: string[] = ['tv', 'biz', 'io', 'me'];
-  users: WritableSignal<User[]> = this.userService.users
+  users: Signal<User[]> = this.userService.usersFiltered
 
   //constructor(private userService: UserService) { }
 

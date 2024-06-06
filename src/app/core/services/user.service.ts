@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, computed, signal } from '@angular/core';
 import { User } from '../interfaces/user.interface';
 
 @Injectable({
@@ -6,7 +6,10 @@ import { User } from '../interfaces/user.interface';
 })
 export class UserService {
   users = signal<User[]>([]);
-  nameSearched = signal('')
+  nameSearched = signal('');
+  usersFiltered = computed(() =>
+    this.users().filter(user => user.name.includes(this.nameSearched()))
+  );
 
   getAll() {
     this.users.set([
@@ -244,6 +247,6 @@ export class UserService {
   }
 
   setNameSearched(val: string) {
-    this.nameSearched.set(val)
+    this.nameSearched.set(val);
   }
 }
