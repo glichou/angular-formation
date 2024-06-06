@@ -2,6 +2,7 @@ import { CurrencyPipe, UpperCasePipe } from '@angular/common';
 import { Component, WritableSignal, effect, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AppService } from '../../core/services/app.service';
+import { UserService } from '../../core/services/user.service';
 import { SearchComponent } from './search/search.component';
 
 @Component({
@@ -17,6 +18,7 @@ import { SearchComponent } from './search/search.component';
 })
 export class NavbarComponent {
   private appService = inject(AppService)
+  private userService = inject(UserService)
 
   // model
   title: WritableSignal<string> = this.appService.title;
@@ -30,7 +32,7 @@ export class NavbarComponent {
   }
 
   listenSearch(userName: string) {
-    console.log(userName);
+    this.userService.setNameSearched(userName)
   }
 
   changeTitle() {

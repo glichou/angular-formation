@@ -6,6 +6,7 @@ import { User } from '../interfaces/user.interface';
 })
 export class UserService {
   users = signal<User[]>([]);
+  nameSearched = signal('')
 
   getAll() {
     this.users.set([
@@ -240,5 +241,9 @@ export class UserService {
         },
       },
     ]);
+  }
+
+  setNameSearched(val: string) {
+    this.nameSearched.set(val)
   }
 }
