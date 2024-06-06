@@ -22,6 +22,11 @@ ob$
         bufferTime(400),
         map(ev => ev.length)
     )
-    .subscribe((nb) => {
+    .subscribe({
+      next: (nb) => {
         console.log(nb)
+      },
+      error: (err) => {
+        console.log(err)
+      }
     })
