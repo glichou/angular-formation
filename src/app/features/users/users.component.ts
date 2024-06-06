@@ -24,4 +24,8 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.userService.getAll().subscribe()
   }
+
+  deleteUser(id: number) {
+    console.log(id)
+  }
 }
