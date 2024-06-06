@@ -14,5 +14,8 @@
 </select>
 
 @for (u of users() | extFilter:extSelected ; track u.id) {
-    <app-user-card [user]="u" (remove)="deleteUser($event)" />
+    <app-user-card [user]="u" (remove)="deleteUser($event)" >
+        <h1 #title>Titre</h1>
+        <h2 #subtitle>Sous titre</h2>
+    </app-user-card>
 }

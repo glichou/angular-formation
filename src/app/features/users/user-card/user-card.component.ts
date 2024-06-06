@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { User } from '../../../core/interfaces/user.interface';
 import { LangPipe } from '../../../shared/pipes/lang.pipe';
 
@@ -6,8 +6,10 @@ import { LangPipe } from '../../../shared/pipes/lang.pipe';
   selector: 'app-user-card',
   template: `
     <article>
+      <ng-content select="h1" />
       <header>{{ user.name }}</header>
       {{ user.email }}
+      <ng-content select="h2" />
       <footer>
         <button (click)="removeUser()">{{ 'REMOVE' | lang:'fr' }}</button>
       </footer>
@@ -16,11 +18,21 @@ import { LangPipe } from '../../../shared/pipes/lang.pipe';
   standalone: true,
   imports: [LangPipe]
 })
-export class UserCardComponent {
+export class UserCardComponent implements OnDestroy, AfterContentInit {
   @Input() user: User = {} as User;
   @Output() remove: EventEmitter<number> = new EventEmitter()
+  @ContentChild('title') myTitle!: ElementRef
+  @ContentChild('subtitle') subTitle!: ElementRef
 
   removeUser() {
     this.remove.emit(this.user.id)
+  }
+
+  ngAfterContentInit(): void {
+      console.log(this.myTitle.nativeElement)
+  }
+
+  ngOnDestroy(): void {
+      
   }
 }
