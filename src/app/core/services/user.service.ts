@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { User } from "../interfaces/user.interface";
+import { Injectable, signal } from '@angular/core';
+import { User } from '../interfaces/user.interface';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  users: User[] = []
+  users = signal<User[]>([]);
 
   getAll() {
-    return [
+    this.users.set([
       {
         id: 1,
         name: 'Leanne Graham',
@@ -239,6 +239,6 @@ export class UserService {
           bs: 'target end-to-end models',
         },
       },
-    ];
+    ]);
   }
 }
