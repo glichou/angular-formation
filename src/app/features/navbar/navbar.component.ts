@@ -1,5 +1,5 @@
 import { CurrencyPipe, UpperCasePipe } from '@angular/common';
-import { Component, WritableSignal, effect, inject } from '@angular/core';
+import { Component, Signal, effect, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AppService } from '../../core/services/app.service';
 import { UserService } from '../../core/services/user.service';
@@ -21,7 +21,7 @@ export class NavbarComponent {
   private userService = inject(UserService)
 
   // model
-  title: WritableSignal<string> = this.appService.title;
+  title: Signal<string> = this.appService.title.asReadonly();
   name = 'ben';
   price = 15;
 

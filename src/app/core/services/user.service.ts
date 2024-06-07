@@ -3,7 +3,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 
-type UserCreatePayload = Omit<User, 'id'>
+export type UserCreatePayload = Omit<User, 'id'>;
 
 @Injectable({
   providedIn: 'root',
@@ -27,18 +27,30 @@ export class UserService {
   }
 
   get(id: number): Observable<User> {
-    return this.http.get<User>(this.url + '/' + id)
+    return this.http.get<User>(this.url + '/' + id);
+  }
+
+  update(id: number, payload: UserCreatePayload): Observable<User> {
+    return this.http.put<User>(this.url + '/' + id, payload).pipe(
+      tap((userModified) => {
+        const users = this.users().map((user) => {
+          if (user.id == id) {
+            return userModified;
+          }
+          return user;
+        });
+        //  const users = this.users().map(user => user.id == id ? userModified : user)
+        this.users.set(users);
+      })
+    );
   }
 
   create(payload: UserCreatePayload): Observable<User> {
     return this.http.post<User>(this.url, payload).pipe(
       tap((user) => {
-        this.users.set([
-          ...this.users(),
-          user
-        ])
+        this.users.set([...this.users(), user]);
       })
-    )
+    );
   }
 
   delete(id: number): Observable<void> {

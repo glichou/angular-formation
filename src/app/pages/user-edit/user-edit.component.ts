@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../core/interfaces/user.interface';
-import { UserService } from '../../core/services/user.service';
+import { UserCreatePayload, UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -17,7 +17,7 @@ export class UserEditComponent implements OnInit {
   private builder = inject(FormBuilder)
 
   user: User = {} as User
-  propName = new FormControl()
+  propName = new FormControl<string>('')
   form = this.builder.group({
     name: this.propName,
     email: '',
@@ -31,5 +31,13 @@ export class UserEditComponent implements OnInit {
       //this.propName.setValue(this.user.name)
       this.form.patchValue(this.user)
     })
+  }
+
+  edit() {
+    this.userService
+      .update(this.user.id, this.form.value as UserCreatePayload)
+      .subscribe((user) => {
+        this.user = user
+      })
   }
 }
