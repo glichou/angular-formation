@@ -25,6 +25,14 @@ export class UsersComponent implements OnInit {
     this.userService.getAll().subscribe()
   }
 
+  createUser() {
+    this.userService.create({
+      name: 'ana',
+      email: 'ana@gmail.com',
+      username: 'test'
+    }).subscribe()
+  }
+
   deleteUser(id: number) {
     this.userService.delete(id).subscribe()
   }
