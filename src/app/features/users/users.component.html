@@ -13,7 +13,30 @@
     }
 </select>
 
-<button (click)="createUser()">Créer utilisateur</button>
+<form (ngSubmit)="createUser(myForm)" #myForm="ngForm">
+
+    @if (myForm.invalid && myForm.submitted) {
+        @if (email.hasError('required')) {
+            <p>Email obligatoire</p>
+        }
+        @if (email.hasError('email')) {
+            <p>Email mal formé</p>
+        }
+        @if (name.hasError('required')) {
+            <p>Nom obligatoire</p>
+        }
+    }
+    
+    <label>Email</label>
+    <input type="text" name="email" ngModel #email="ngModel" required email>
+
+    <label>Name</label>
+    <input type="text" name="name" ngModel #name="ngModel" required>
+
+    <button [ariaBusy]="loading" [disabled]="loading">
+        {{ loading ? '' : 'Créer utilisateur' }}
+    </button>
+</form>
 
 @for (u of users() | extFilter:extSelected ; track u.id) {
     <app-user-card [user]="u" (remove)="deleteUser($event)" >
