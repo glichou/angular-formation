@@ -1,4 +1,5 @@
 import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { User } from '../../../core/interfaces/user.interface';
 import { LangPipe } from '../../../shared/pipes/lang.pipe';
 
@@ -12,11 +13,12 @@ import { LangPipe } from '../../../shared/pipes/lang.pipe';
       <ng-content select="h2" />
       <footer>
         <button (click)="removeUser()">{{ 'REMOVE' | lang:'fr' }}</button>
+        <button [routerLink]="['user', user.id]">Modifier</button>
       </footer>
     </article>
   `,
   standalone: true,
-  imports: [LangPipe]
+  imports: [LangPipe, RouterLink]
 })
 export class UserCardComponent implements OnDestroy, AfterContentInit {
   @Input() user: User = {} as User;

@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from '../../features/navbar/navbar.component';
-import { UsersComponent } from '../../features/users/users.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent, UsersComponent],
+  imports: [NavbarComponent, RouterOutlet],
   template: `
     <app-navbar />
-    <app-users />
+    <router-outlet />
   `,
   styleUrl: './home.component.css'
 })
