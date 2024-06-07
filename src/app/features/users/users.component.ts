@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, Signal, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../../core/interfaces/user.interface';
 import { UserService } from '../../core/services/user.service';
@@ -12,18 +12,27 @@ import { UserCardComponent } from './user-card/user-card.component';
   standalone: true,
   imports: [UserCardComponent, PluralPipe, FormsModule, ExtensionPipe],
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
   private userService = inject(UserService)
   nbSelected = 0;
   extSelected = '';
   extensions: string[] = ['tv', 'biz', 'io', 'me'];
   users: Signal<User[]> = this.userService.usersFiltered
   loading = false
+  // subscription!: Subscription
 
   //constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.userService.getAll().subscribe()
+
+    // this.subscription = interval(1000).subscribe((nb) => {
+    //   console.log(nb)
+    // })
+  }
+
+  ngOnDestroy(): void {
+      // this.subscription.unsubscribe()
   }
 
   createUser(form: NgForm) {
