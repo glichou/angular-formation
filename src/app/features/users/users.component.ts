@@ -31,6 +31,7 @@ export class UsersComponent implements OnInit {
     this.loading = true
     this.userService.create(form.value).subscribe(() => {
       this.loading = false
+      form.resetForm()
     })
   }
 
